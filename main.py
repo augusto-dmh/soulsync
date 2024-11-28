@@ -17,10 +17,31 @@ NEXT_TOKEN_UPDATE = -1
 def read_root():
     return {"Hello": "World"}
 
+@app.get("/search")
+async def search_spotify(q: str, year:str, limit:Union[int] = 10):
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None) :
-    return {"item_id": item_id, "q": q}
+    await refresh_token()
+
+    api_url = "https://api.spotify.com/v1/search"
+    # exemplo de search
+    # http://127.0.0.1:8000/search?q=genre:metal,rock&year=1980-1990&limit=5
+    async with httpx.AsyncClient() as client:
+
+        client.headers["Authorization"] = "Bearer " + Dados.get_token()
+        
+        params = {"q": q, "year":year, "type": "track", "market":"US", "limit":limit}
+
+        response = await client.get(api_url, params=params)
+
+    if(response.status_code != 404):
+
+        response_json = response.json()
+        tracks = [track["name"] for track in response_json.get("tracks", {}).get("items", [])]
+
+        return {"tracks": tracks}
+
+    else:
+        print("deu pau pesquisando")
 
 
 @app.get("/get_genres")
