@@ -3,7 +3,6 @@ from dados import Dados
 import datetime as dt
 import httpx
 
-
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -46,15 +45,58 @@ async def search_spotify(q: str, year:str, limit:Union[int] = 10):
 
         response_json = response.json()
         # guarda o resultado em json numa variavel
-        tracks = [track["name"] for track in response_json.get("tracks", {}).get("items", [])]
-        # vai filtrar apenas o nome de cada música
+        # Extrai os nomes das faixas, URLs das imagens e links das músicas
+        tracks = [
+            {
+                "name": track["name"],
+                "image_url": track["album"]["images"][0]["url"],
+                "track_url": track["external_urls"]["spotify"]
+            }
+            for track in response_json.get("tracks", {}).get("items", [])
+        ]
 
         return {"tracks": tracks}
-        # retorna o nome das músicas 
 
     else:
         print("deu pau pesquisando")
 
+async def create_playlist(name:str):
+
+    await refresh_token()
+    # gerar ou revalidar token
+
+    api_url = "https://api.spotify.com/v1/users/31vq3eve7f3nlgr3k4dj2vjh2wh4/playlists"
+
+    async with httpx.AsyncClient() as client:
+
+        client.headers = httpx.Headers (
+            {
+                "Authorization": "Bearer " + Dados.get_token(),  
+                "Content-Type": "application/json",
+            }
+        )
+
+        query = {
+            "name": name,
+            "description": "Playlist criada pelo App SoulSync",
+            "public": True
+        }
+        # define a query da requisição 
+
+        response = await client.post(api_url, data=query)
+        # faz a requisição com POST e guarda numa variavel
+
+        if(response.status_code != 404):
+
+            response_json = response.json()
+            # guarda o resultado em json numa variavel
+
+            #p_url = response_json["external_urls"]
+            # guarda a url da playlist
+
+            print(response_json)
+        else:
+            print("deu pau pegando gerando playlist")
 
 @app.get("/get_genres")
 async def genres():
@@ -107,7 +149,7 @@ async def refresh_token():
                 "client_id": CLIENT_ID,
                 "client_secret": CLIENT_SECRET
             }
-            # define a querry da requisição 
+            # define a query da requisição 
 
             response = await client.post(api_url, data=query)
             # faz a requisição com POST e guarda numa variavel
@@ -139,7 +181,4 @@ async def refresh_token():
                 # compara o horário em que a token foi gerada com o tempo de duração da token e gera uma data
             else:
                 print("deu pau guardando a token")
-
-
-    
     
