@@ -4,8 +4,23 @@ import datetime as dt
 import httpx
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# configura o CORS para permitir requisições de origens externas (diferentes domínios e portas)
+
+origins = [
+    "http://127.0.0.1:5500",  # requisições poderão ser feitas do "localhost utilizado" (poderia ser 'localhost' ao invés de '127.0.0.1', mas ela hostea neste padrão) pela extensão Live Server
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 CLIENT_ID = "68096d2a19994062ba712677c80440f1"
 CLIENT_SECRET = "8937e115c55a4ca8bb4433af69ce4ea9"
@@ -24,9 +39,6 @@ async def search_spotify(q: str, year:str, limit:Union[int] = 10):
 # "q" será genre:genero1, genero2, etc, podendo ter quantos genêros quiser
 # "year" aceita um ano ou ano X até ano Y 
 # "limit" recebe um número para definir o limite da busca, caso vazio o padrão é 10
-
-    await refresh_token()
-    # gerar ou revalidar token
 
     api_url = "https://api.spotify.com/v1/search"
     # exemplo de search: http://127.0.0.1:8000/search?q=genre:metal,rock&year=1980-1990&limit=5
@@ -61,9 +73,6 @@ async def search_spotify(q: str, year:str, limit:Union[int] = 10):
         print("deu pau pesquisando")
 
 async def create_playlist(name:str):
-
-    await refresh_token()
-    # gerar ou revalidar token
 
     api_url = "https://api.spotify.com/v1/users/31vq3eve7f3nlgr3k4dj2vjh2wh4/playlists"
 
@@ -102,9 +111,6 @@ async def create_playlist(name:str):
 async def genres():
 # vai pegar todos gêneros musicais disponíveis da API do spotify
 
-    await refresh_token()
-    # gerar ou revalidar token
-
     api_url = "https://api.spotify.com/v1/recommendations/available-genre-seeds"
 
     async with httpx.AsyncClient() as client:
@@ -125,6 +131,7 @@ async def genres():
             print("deu pau pegando o generos")
 
 
+@app.get("/refresh_token")
 async def refresh_token():
 # função para gerar e revalidar token
 
@@ -181,4 +188,5 @@ async def refresh_token():
                 # compara o horário em que a token foi gerada com o tempo de duração da token e gera uma data
             else:
                 print("deu pau guardando a token")
-    
+
+    return {"token": Dados.get_token()}
