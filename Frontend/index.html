@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulSync</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Soulsync</h1>
+        </header>
+        <main>
+            <section class="search-section">
+                <h2>Search Tracks</h2>
+                <input type="text" id="search-genre" placeholder="Enter genre(s)">
+                <input type="text" id="search-year" placeholder="Enter year or range (e.g., 1980-1990)">
+                <button onclick="searchTracks()">Search</button>
+                <div id="tracks"></div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
