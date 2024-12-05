@@ -40,9 +40,6 @@ async def search_spotify(q: str, year:str, limit:Union[int] = 10):
 # "year" aceita um ano ou ano X até ano Y 
 # "limit" recebe um número para definir o limite da busca, caso vazio o padrão é 10
 
-    await refresh_token()
-    # gerar ou revalidar token
-
     api_url = "https://api.spotify.com/v1/search"
     # exemplo de search: http://127.0.0.1:8000/search?q=genre:metal,rock&year=1980-1990&limit=5
     async with httpx.AsyncClient() as client:
@@ -76,9 +73,6 @@ async def search_spotify(q: str, year:str, limit:Union[int] = 10):
         print("deu pau pesquisando")
 
 async def create_playlist(name:str):
-
-    await refresh_token()
-    # gerar ou revalidar token
 
     api_url = "https://api.spotify.com/v1/users/31vq3eve7f3nlgr3k4dj2vjh2wh4/playlists"
 
@@ -116,9 +110,6 @@ async def create_playlist(name:str):
 @app.get("/get_genres")
 async def genres():
 # vai pegar todos gêneros musicais disponíveis da API do spotify
-
-    await refresh_token()
-    # gerar ou revalidar token
 
     api_url = "https://api.spotify.com/v1/recommendations/available-genre-seeds"
 
