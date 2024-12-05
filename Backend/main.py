@@ -140,6 +140,7 @@ async def genres():
             print("deu pau pegando o generos")
 
 
+@app.get("/refresh_token")
 async def refresh_token():
 # função para gerar e revalidar token
 
@@ -196,4 +197,5 @@ async def refresh_token():
                 # compara o horário em que a token foi gerada com o tempo de duração da token e gera uma data
             else:
                 print("deu pau guardando a token")
-    
+
+    return {"token": Dados.get_token()}
