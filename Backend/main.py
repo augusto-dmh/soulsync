@@ -1,11 +1,26 @@
 from typing import Union
-from Backend.dados import Dados 
+from dados import Dados
 import datetime as dt
 import httpx
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# configura o CORS para permitir requisições de origens externas (diferentes domínios e portas)
+
+origins = [
+    "http://127.0.0.1:5500",  # requisições poderão ser feitas do "localhost utilizado" (poderia ser 'localhost' ao invés de '127.0.0.1', mas ela hostea neste padrão) pela extensão Live Server
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 CLIENT_ID = "68096d2a19994062ba712677c80440f1"
 CLIENT_SECRET = "8937e115c55a4ca8bb4433af69ce4ea9"
