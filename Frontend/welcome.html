@@ -23,6 +23,16 @@
             align-items: center;
             flex-direction: column;
             height: 100%;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
         
         img {
@@ -36,6 +46,16 @@
         .logo {
             width: 100%;
             height: 100%;
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
         
         h1 {
@@ -84,6 +104,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            transition: background-color 0.3s ease;
         }
 
         .button-link:hover {
@@ -95,6 +116,21 @@
             justify-content: center;
             align-items: center;
             flex-flow: column wrap;
+        }
+
+        .images-wrapper img {
+            opacity: 0.4;
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
         }
     </style>
 </head>
@@ -115,13 +151,12 @@
             <a href="/Frontend/" class="button-link">Sincronizar</a>
         </header>
     
-        
         <div class="images-wrapper">
-            <img src="./imgs/espiral.png" style="opacity: 40%; position: absolute; top: -200px; left: -100px;" />
-            <img src="./imgs/espiral.png" style="opacity: 40%; position: absolute; top: -200px; right: -200px;" />
-            <img src="./imgs/flecha.png" style="opacity: 40%; width: 120px; height: 120px; position: absolute; top: 550px; right: 580px;" />
-            <img src="./imgs/flecha.png" style="opacity: 40%; width: 120px; height: 120px; position: absolute; top: 550px; left: 580px; transform: rotate(90deg);" />
-            <img src="./imgs/fumaca.png" style="opacity: 40%; width: 100px; height: 100px; position: absolute; top: 400px; right: 710px;"/>
+            <img src="./imgs/espiral.png" style="top: -200px; left: -100px;" />
+            <img src="./imgs/espiral.png" style="top: -200px; right: -200px;" />
+            <img src="./imgs/flecha-esquerda.png" style="width: 120px; height: 120px; top: 560px; right: 580px;" />
+            <img src="./imgs/flecha-direita.png" style="width: 120px; height: 120px; top: 560px; left: 580px;" />
+            <img src="./imgs/fumaca.png" style="width: 100px; height: 100px; top: 400px; right: 710px;"/>
         </div>
     </div>
     <script src="script.js"></script>
