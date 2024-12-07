@@ -1,9 +1,6 @@
 from typing import Union
 from dados import Dados
-<<<<<<< Updated upstream
 import datetime as dt
-=======
->>>>>>> Stashed changes
 import httpx
 from fastapi import FastAPI, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
