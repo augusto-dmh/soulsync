@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #210C46;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #C4B7E7;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.clear-btn {
+    background-color: #b91d1d;
+}
+
+.clear-btn:hover {
+    background-color: #d71e1e;
+}
+
+button:hover {
+    background-color: #a17fff;
+}
+
+#tracks, #playlist-result, #genres {
+    margin-top: 10px;
+}
+
+.track {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.track img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.track a {
+    color: #1DB954;
+    text-decoration: none;
+}
+
+.track a:hover {
+    text-decoration: underline;
+}

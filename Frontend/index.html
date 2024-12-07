@@ -2,25 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoulSync</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Soulsync</h1>
+            <h1>SoulSync</h1>
         </header>
-        <main>
-            <section class="search-section">
-                <h2>Search Tracks</h2>
-                <input type="text" id="search-genre" placeholder="Enter genre(s)">
-                <input type="text" id="search-year" placeholder="Enter year or range (e.g., 1980-1990)">
-                <button onclick="searchTracks()">Search</button>
-                <div id="tracks"></div>
-            </section>
-        </main>
+        <section>
+            <button onclick="login()">Login com Spotify</button>
+        </section>
+        <section id="auth-status">
+            <!-- Opcional: Exibir status de autenticação -->
+        </section>
+        <section>
+            <h2>Criar Playlist</h2>
+            <input type="text" id="playlist-name" placeholder="Nome da Playlist">
+            <button onclick="createPlaylist()">Criar Playlist</button>
+        </section>
+        <section>
+            <h2>Adicionar Faixa à Playlist</h2>
+            <input type="text" id="playlist-id" placeholder="ID da Playlist">
+            <input type="text" id="track-ids" placeholder="IDs das Faixas (id1, id2...)">
+            <button onclick="addTrackToPlaylist()">Adicionar Faixa à Playlist</button>
+        </section>
+        <section>
+            <h2>Buscar Faixas</h2>
+            <input type="text" id="search-genre" placeholder="Gênero">
+            <input type="text" id="search-year" placeholder="Ano">
+            <button onclick="searchTracks()">Buscar</button>
+            <button class="clear-btn" onclick="clearTracks()">Limpar</button>
+            <div id="tracks"></div>
+        </section>
+        <section>
+            <h2>Gêneros Disponíveis</h2>
+            <button onclick="getGenres()">Obter Gêneros</button>
+            <button class="clear-btn" onclick="clearGenres()">Limpar</button>
+            <div id="genres"></div>
+        </section>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
