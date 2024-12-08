@@ -36,7 +36,7 @@ def generate_state(length=16):
 @app.get("/")
 def read_root():
     # redireciona para a página inicial
-    return RedirectResponse(url="http://127.0.0.1:5500/Frontend/index.html")
+    return RedirectResponse(url="http://127.0.0.1:5500/Frontend/menu.html")
 
 @app.get("/login")
 async def login(request: Request):
