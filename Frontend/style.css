@@ -78,3 +78,35 @@ button:hover {
 .track a:hover {
     text-decoration: underline;
 }
+
+.track {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #C4B7E7;
+    color: #000000;
+}
+
+.track-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 4px;
+    margin-right: 20px;
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.track-info p {
+    margin: 5px 0;
+    color: #555;
+}
