@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - SoulSync</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .login-container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .login-box {
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            width: 400px;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #FFFFFF;
+        }
+        
+        .input-group input {
+            width: calc(100% - 30px);
+            padding: 15px;
+            border: none;
+            border-radius: 28px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+        
+        .input-group input:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 28px;
+            background-color: #C4B7E7;
+            color: #000000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #a17fff;
+        }
+
+        .background-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .background-elements img {
+            position: absolute;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* New styles for terms modal */
+        .terms-link {
+            color: #C4B7E7;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .terms-link:hover {
+            color: #a17fff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            width: 70%;
+            max-width: 700px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: #fff;
+        }
+
+        .terms-text {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 20px;
+        }
+
+        .terms-text h3 {
+            color: #C4B7E7;
+            margin-top: 20px;
+        }
+
+        .terms-text p {
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-elements">
+        <img src="./imgs/espiral.png" style="top: -200px; left: -100px;">
+        <img src="./imgs/espiral.png" style="bottom: -200px; right: -200px;">
+    </div>
+
+    <div class="login-container">
+        <div class="login-box">
+            <img src="./imgs/logo.png" style="width: 80px; margin-bottom: 20px;">
+            <h1>Login</h1>
+            <button onclick="login()" class="login-button">
+                <img src="./imgs/spotify-logo.png" style="width: 24px; margin-right: 8px; vertical-align: middle;">
+                Continue com o Spotify
+            </button>
+            <p>Consulte os <span class="terms-link">termos de uso</span></p>
+        </div>
+    </div>
+
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Termos de Uso</h2>
+            <div class="terms-text">
+                <h3>1. Aceitação dos Termos</h3>
+                <p>Ao acessar e usar o SoulSync, você concorda em cumprir estes termos de uso.</p>
+
+                <h3>2. Privacidade</h3>
+                <p>O SoulSync se apresenta como um GRPP (Gerenciador de Repositório Público de Playlists): Você consegue criar playlists e gerenciar as músicas delas. Todo o conteúdo criado é público, logo não espere privacidade aqui.</p> 
+
+                <h3>3. Respeito</h3>
+                <p>Apesar da privacidade nula e do poder de gerenciamento proporcionado aos usuários, evite agir com má intenção em relação às playlists criadas.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const modal = document.getElementById("termsModal");
+        const termsLink = document.querySelector(".terms-link");
+        const closeButton = document.querySelector(".close-button");
+
+        termsLink.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        closeButton.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
