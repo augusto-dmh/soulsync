@@ -63,11 +63,6 @@ async def login(request: Request):
 async def callback(request: Request):
     # processa o retorno da autenticação do Spotify
     code = request.query_params.get("code")
-    state = request.query_params.get("state")
-    stored_state = request.session.pop('state', None)
-
-    if state != stored_state:
-        return JSONResponse({"error": "Estado inválido"}, status_code=400)
 
     if not code:
         return JSONResponse({"error": "Código de autorização não encontrado"}, status_code=400)
@@ -96,7 +91,7 @@ async def callback(request: Request):
             account_id = me_response.json()["id"]
 
             redirect_url = (
-                "http://127.0.0.1:5500/Frontend/index.html"
+                "http://127.0.0.1:5500/Frontend/menu.html"
                 f"?access_token={data['access_token']}"
                 f"&refresh_token={data['refresh_token']}"
                 f"&account_id={account_id}"

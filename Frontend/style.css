@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #210C46;
     color: #FFFFFF;
     margin: 0;
@@ -7,9 +7,11 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
     padding: 20px;
+    flex: 1;
+    overflow-y: auto;
 }
 
 header {
@@ -25,12 +27,14 @@ section {
     margin-bottom: 20px;
 }
 
-input[type="text"] {
+input[type="text"], select {
     width: calc(100% - 22px);
     padding: 10px;
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;
+    background-color: #2A0E5D;
+    color: #FFFFFF;
 }
 
 button {
@@ -40,73 +44,37 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.clear-btn {
-    background-color: #b91d1d;
-}
-
-.clear-btn:hover {
-    background-color: #d71e1e;
+    font-family: 'poppins';
 }
 
 button:hover {
     background-color: #a17fff;
 }
 
-#tracks, #playlist-result, #genres {
-    margin-top: 10px;
+.clear-btn {
+    background-color: #b91d1d;
+    color: #ffffff;
 }
 
-.track {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+.clear-btn:hover {
+    background-color: #d71e1e;
 }
 
-.track img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-.track a {
-    color: #1DB954;
-    text-decoration: none;
+::-webkit-scrollbar-track {
+    background: #2A0E5D;
 }
 
-.track a:hover {
-    text-decoration: underline;
-}
-
-.track {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+::-webkit-scrollbar-thumb {
     background-color: #C4B7E7;
-    color: #000000;
+    border-radius: 10px;
+    border: 2px solid #2A0E5D;
 }
 
-.track-image {
-    width: 64px;
-    height: 64px;
-    border-radius: 4px;
-    margin-right: 20px;
-}
-
-.track-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.track-info h3 {
-    margin: 0;
-    font-size: 1.2em;
-}
-
-.track-info p {
-    margin: 5px 0;
-    color: #555;
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a17fff;
 }

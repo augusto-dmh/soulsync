@@ -67,7 +67,6 @@ function logout() {
 
 window.onload = () => {
     parseTokensFromURL();
-    const token = localStorage.getItem('spotify_access_token');
 };
 
 async function searchTracks() {
@@ -77,8 +76,8 @@ async function searchTracks() {
         return;
     }
 
-    const genre = document.getElementById('search-genre').value;
-    const year = document.getElementById('search-year').value;
+    const genre = document.getElementById('genre-select').value;
+    const year = document.getElementById('decade-select').value;
     const limit = 5;
 
     let searchQuery = `genre:${genre}`;
@@ -101,14 +100,19 @@ async function searchTracks() {
         if (data.tracks && data.tracks.items.length > 0) {
             data.tracks.items.forEach(track => {
                 const trackElement = document.createElement('div');
-                trackElement.className = 'track';
+                trackElement.className = 'track-card';
                 trackElement.innerHTML = `
-                    <img src="${track.album.images[1].url}" alt="${track.name}" class="track-image">
                     <div class="track-info">
-                        <h3>${track.name}</h3>
-                        <p>Artista: ${track.artists[0].name}</p>
-                        <p>Álbum: ${track.album.name}</p>
-                        <p>ID: ${track.id}</p>
+                        <div>
+                            <img src="${track.album.images[1].url}" alt="${track.name}">
+                            <h3>${track.name}</h3>
+                            <p>Artista: ${track.artists[0].name}</p>
+                            <p>Álbum: ${track.album.name}</p>
+                        </div>
+                        <a href="${track.external_urls.spotify}" target="_blank" class="spotify-button">
+                            <img src="./imgs/spotify-logo.png" alt="Spotify Logo">
+                            Ouvir no Spotify
+                        </a>
                     </div>
                 `;
                 tracksDiv.appendChild(trackElement);
@@ -131,7 +135,8 @@ async function createPlaylist() {
         return;
     }
 
-    const playlistName = document.getElementById('playlist-name').value;
+    const playlistName = document.getElementById('playlist-name').value.trim();
+
     if (!playlistName) {
         alert('Por favor, forneça um nome para a playlist.');
         return;
@@ -152,20 +157,20 @@ async function createPlaylist() {
         });
 
         const data = await response.json();
+
         if (response.ok) {
-            alert(`Playlist "${playlistName}" criada com sucesso!`);
-            document.getElementById('playlist-name').value = '';
+            alert('Playlist criada com sucesso!');
             document.getElementById('playlist-id').value = data.id;
         } else {
-            alert('Erro ao criar playlist: ' + (data.error || 'Erro desconhecido'));
+            console.error('Erro ao criar playlist:', data);
+            alert('Erro ao criar playlist: ' + (data.message || 'Erro desconhecido.'));
         }
     } catch (error) {
         console.error('Erro ao criar playlist:', error);
-        alert('Falha ao criar playlist.');
+        alert('Erro ao criar playlist.');
     }
 }
 
-// Função para adicionar faixas a uma playlist diretamente via API do Spotify
 async function addTrackToPlaylist() {
     const token = await getToken();
     if (!token) {
@@ -221,19 +226,23 @@ async function getGenres() {
         const response = await fetch(`${apiUrl}/get_genres`);
         const data = await response.json();
         
-        const genresDiv = document.getElementById('genres');
-        genresDiv.innerHTML = ''; // Clear previous genres
+        const genreSelect = document.getElementById('genre-select');
+        genreSelect.innerHTML = ''; // Clear previous genres
         
         data.genres.forEach(genre => {
-            const genreElement = document.createElement('div');
-            genreElement.className = 'genre';
-            genreElement.textContent = genre.charAt(0).toUpperCase() + genre.slice(1);
-            genresDiv.appendChild(genreElement);
+            const option = document.createElement('option');
+            option.value = genre;
+            option.textContent = genre.charAt(0).toUpperCase() + genre.slice(1);
+            genreSelect.appendChild(option);
         });
     } catch (error) {
         console.error('Erro ao obter gêneros:', error);
         alert('Falha ao carregar gêneros.');
     }
+}
+
+function updateYearLabel(year) {
+    document.getElementById('year-label').textContent = year;
 }
 
 function clearTracks() {
@@ -242,6 +251,11 @@ function clearTracks() {
 }
 
 function clearGenres() {
-    const genresDiv = document.getElementById('genres');
-    genresDiv.innerHTML = '';
+    const genreSelect = document.getElementById('genre-select');
+    genreSelect.innerHTML = '';
+}
+
+function redirectWithParams(newUrl) {
+    const currentParams = window.location.search;
+    window.location.href = newUrl + currentParams;
 }

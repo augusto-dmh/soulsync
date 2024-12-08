@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Playlists - SoulSync</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #210C46;
+            color: #FFFFFF;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #2A0E5D;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #C4B7E7;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #a17fff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+        }
+
+        section {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        input[type="text"], select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2A0E5D;
+            color: #FFFFFF;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #C4B7E7;
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #a17fff;
+        }
+
+        .logo {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 80px;
+        }
+
+        .background-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .background-elements img {
+            position: absolute;
+            opacity: 0.4;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .background-elements img:first-child {
+            top: -300px;
+            left: -100px;
+        }
+
+        .background-elements img:nth-child(2) {
+            top: -100px;
+            left: 900px;
+        }
+
+        .background-elements img:last-child {
+            bottom: -200px;
+            right: -200px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-elements">
+        <img src="./imgs/espiral.png" >
+        <img src="./imgs/arranhao.png" >
+        <img src="./imgs/espiral.png" >
+    </div>
+
+    <nav class="navbar">
+        <a href="/Frontend/playlists.html">Playlists</a>
+        <a href="/Frontend/welcome.html">Homepage</a>
+        <a href="/Frontend/faixas.html">Faixas</a>
+        <a href="/Frontend/login.html">Login</a>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>Gerenciar Playlists</h1>
+        </header>
+        <section>
+            <h2>Criar Playlist</h2>
+            <input type="text" id="playlist-name" placeholder="Nome da Playlist">
+            <button onclick="createPlaylist()">Criar Playlist</button>
+        </section>
+        <section>
+            <h2>Adicionar Faixa à Playlist</h2>
+            <input type="text" id="playlist-id" placeholder="ID da Playlist">
+            <input type="text" id="track-ids" placeholder="IDs das Faixas (id1, id2...)">
+            <button onclick="addTrackToPlaylist()">Adicionar Faixa à Playlist</button>
+        </section>
+    </div>
+    <img src="./imgs/logo.png" alt="Logo" class="logo">
+    <script src="script.js"></script>
+</body>
+</html>
