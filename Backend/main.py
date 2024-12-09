@@ -3,12 +3,8 @@ from fastapi import FastAPI, Request, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, JSONResponse
 from urllib.parse import urlencode
-import random
-import string
-import httpx
-import secrets
+import random, string, httpx, secrets
 from starlette.middleware.sessions import SessionMiddleware
-from fastapi import Header
 
 app = FastAPI()
 
