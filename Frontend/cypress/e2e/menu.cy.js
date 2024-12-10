@@ -6,8 +6,8 @@ describe('Testes de page "Menu"', () => {
 
   // Testes de Navegação
   describe('Barra de Navegação', () => {
+    // Checa se a navbar existe e contém todos os links corretamente
     it('deve ter os links de navegação corretos', () => {
-      // Checa se a navbar existe e contém todos os links corretamente
       cy.get('.navbar').within(() => {
         cy.get('a').should('have.length', 4)
         cy.contains('a', 'Playlists').should('exist');
@@ -17,8 +17,8 @@ describe('Testes de page "Menu"', () => {
       });
     });
 
+    // Checa se os links têm os destinos corretos
     it('deve ter os links corretos', () => {
-      // Checa se os links têm os destinos corretos
       cy.get('.navbar a[href="/Frontend/playlists.html"]').should('exist');
       cy.get('.navbar a[href="/Frontend/welcome.html"]').should('exist');
       cy.get('.navbar a[href="/Frontend/faixas.html"]').should('exist');
